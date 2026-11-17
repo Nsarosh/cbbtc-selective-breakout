@@ -5,7 +5,7 @@
 The bot trades only CBBTC. It stays in cash unless a non-flat, liquid bar confirms a short-range breakout in the context of a medium-range trend and expanding intrabar range.
 
 - Short breakout: close above the previous 12-bar high, with a threshold that gradually relaxes from 18 bps toward 5 bps as the 1,440-batch window advances.
-- Medium context: price remains close to or above the prior 36-bar range, the 24-bar mean is not materially below the 72-bar mean, and the 24/72-bar returns confirm at least 30/60 bps of positive momentum.
+- Medium context: price remains close to or above the prior 36-bar range, the 24-bar mean is not materially below the 72-bar mean, and the 24/72-bar returns confirm at least 40/80 bps of positive momentum; the larger 60% size requires 60/100 bps.
 - Volatility expansion: the mean high-low range of the latest 8 bars is at least 1.05x the preceding 48-bar mean; the current bar must also have meaningful range.
 - Liquidity: both open and close depth must support at least USD 300,000.
 - Sizing: ordinary signals use 35% equity; stronger trend/volatility breakouts use 60%. A losing streak reduces the next size. After batch 1,200, ordinary entries stop; if no buy has filled, a small 5% recovery-breakout entry is allowed.

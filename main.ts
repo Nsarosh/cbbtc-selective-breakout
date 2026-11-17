@@ -143,7 +143,7 @@ function currentMetrics(bar, seq) {
   const mediumContext = breakout36 >= -18 && close >= sma72 * 0.999;
   const volatilityExpanded = expansionRatio >= 1.05 && recentRange >= 3.0;
   const shortBreakout = breakout12 >= breakoutThreshold;
-  const momentumConfirmed = mom24 >= 30 && mom72 >= 60;
+  const momentumConfirmed = mom24 >= 40 && mom72 >= 80;
   const depthUsd = Math.min(
     ...bar.o_depth.map(n),
     ...bar.c_depth.map(n)
@@ -261,8 +261,8 @@ for await (const line of rl) {
         } else {
           const strong = m.breakout12 >= m.breakoutThreshold + 4 &&
             m.expansionRatio >= 1.35 &&
-            m.mom24 >= 40 &&
-            m.mom72 >= 60 &&
+            m.mom24 >= 60 &&
+            m.mom72 >= 100 &&
             m.sma24 > m.sma72;
           weightBps = strong ? 6_000 : 3_500;
           const streakFactor = Math.max(0.4, 1 - 0.22 * losingStreak);
