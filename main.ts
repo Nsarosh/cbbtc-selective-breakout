@@ -99,7 +99,7 @@ function updateFills(batch) {
       const position = batch.account.positions.find(item => item.symbol === SYMBOL);
       entryPrice = n(fill.price);
       highWater = entryPrice;
-      entryBar = n(fill.fill_bar);
+      entryBar = batch.seq;
       entryCost = position ? n(position.cost_quote_units) :
         n(fill.notional_quote_units) + n(fill.fee_quote_units);
     } else {
@@ -213,18 +213,16 @@ for await (const line of rl) {
     const takeProfit = gainBps >= 120;
     const trailingStop = highWater >= entryPrice * 1.007 &&
       pullbackBps <= -60;
-    const trendBreak = metrics && heldBars >= 8 &&
+    const trendBreak = metrics && heldBars >= 8 && gainBps >= 35 &&
       close < metrics.sma24 &&
       (metrics.mom12 < -8 || metrics.sma24 < metrics.sma72);
-    const timeStop = heldBars >= 180 && gainBps < 45;
 
-    if (hardStop || initialStop || takeProfit || trailingStop || trendBreak || timeStop) {
+    if (hardStop || initialStop || takeProfit || trailingStop || trendBreak) {
       orders = makeSell(batch, position,
         hardStop ? "equity-hard-stop" :
         initialStop ? "initial-stop" :
         takeProfit ? "take-profit" :
-        trailingStop ? "trailing-stop" :
-        trendBreak ? "trend-break" : "time-stop");
+        trailingStop ? "trailing-stop" : "trend-break");
     }
   }
 
