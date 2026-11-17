@@ -236,7 +236,8 @@ for await (const line of rl) {
     const depthOk = currentMetrics(bar, batch.seq).depthUsd >= MIN_DEPTH_USD;
     if (enoughHistory && nonFlat && depthOk) {
       const m = currentMetrics(bar, batch.seq);
-      const normalSignal = m.trendUp &&
+      const normalSignal = batch.seq < 1200 &&
+        m.trendUp &&
         m.mediumContext &&
         m.volatilityExpanded &&
         m.shortBreakout &&
