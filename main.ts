@@ -134,8 +134,10 @@ function currentMetrics(bar, seq) {
   const recentRange = mean(ranges.slice(-8));
   const baseRange = mean(ranges.slice(-56, -8));
   const expansionRatio = baseRange > 0 ? recentRange / baseRange : 0;
-  const progress = Math.max(0, Math.min(1, (seq - 240) / 960));
-  const breakoutThreshold = 18 - 13 * progress;
+  const noTradeProgress = filledBuys === 0
+    ? Math.max(0, Math.min(1, (seq - 240) / 960))
+    : 0;
+  const breakoutThreshold = 18 - 13 * noTradeProgress;
 
   const trendUp = sma24 > 0 && sma72 > 0 &&
     sma24 >= sma72 * 0.9995 &&
